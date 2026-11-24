@@ -1,14 +1,18 @@
 #include "glad/glad.h"
-#include "texture.h"
-#include "stb_image.h"
 #include <GL/gl.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+
+#include "texture.h"
+#include "stb_image.h"
 
 nl_texture *nl_texture_new(const char* path)
 {
     if (path == NULL)
         return NULL;
+
+    stbi_set_flip_vertically_on_load(true);
 
     unsigned char *data = NULL;
     int width;

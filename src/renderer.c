@@ -57,11 +57,6 @@ nl_renderer *nl_renderer_new()
     nl_renderer_config_texture_3(r, (vec2){1.0f, 1.0f});
     nl_renderer_config_texture_4(r, (vec2){1.0f, 0.0f});
 
-    // nl_renderer_config_texture_1(r, (vec2){1.0f, 1.0f});
-    // nl_renderer_config_texture_2(r, (vec2){1.0f, 0.0f});
-    // nl_renderer_config_texture_3(r, (vec2){0.0f, 0.0f});
-    // nl_renderer_config_texture_4(r, (vec2){0.0f, 1.0f});
-
     glGenVertexArrays(1, &r->vao);
     glGenBuffers(1, &r->vbo);
     glGenBuffers(1, &r->ebo);

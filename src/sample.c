@@ -47,10 +47,10 @@ int main() {
     NL_SAMPLE_LOAD_SHADER(shader_up_down, "assets/shaders/updown.vert", "assets/shaders/updown.frag");
     NL_SAMPLE_LOAD_SHADER(texture_shader, "assets/shaders/texture.vert", "assets/shaders/texture.frag");
 
-    nl_texture *t1 = NULL;
-    nl_texture *t2 = NULL;
-    t1 = nl_texture_new("assets/textures/shuttle.png");
-    t2 = nl_texture_new("assets/textures/city.jpg");
+    nl_texture *texture_shuttle= NULL;
+    nl_texture *texture_city = NULL;
+    texture_shuttle= nl_texture_new("assets/textures/shuttle.png");
+    texture_city = nl_texture_new("assets/textures/city.jpg");
 
     while(nl_window_is_running(win)) {
         if (nl_is_key_pressed(win, GLFW_KEY_ESCAPE)) {
@@ -118,21 +118,10 @@ int main() {
         nl_renderer_fill_color(r, (color){0.5f, 0.5f, 1.0f});
         nl_renderer_fill_rectangle(r, (vec3){-0.1f, -0.1f, 0.0f}, (vec3){-0.1f, 0.1f, 0.0f}, (vec3){0.1f, 0.1f, 0.0f}, (vec3){0.1f, -0.1f, 0.0f});
 
-        // TODO: ITS JUST A MESS
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         nl_shader_use(texture_shader);
-        nl_shader_uniform_i32(texture_shader, "texture1", 0);
-        nl_shader_uniform_i32(texture_shader, "texture2", 1);
-        nl_renderer_fill_color(r, (color){0.0f, 1.0f, 0.0f});
 
-        nl_renderer_render_texture(
-                r,
-                t1,
-                (vec3){-1.0f, -1.0f}, 
-                (vec3){-1.0f, 0.0f}, 
-                (vec3){0.0f, 0.0f}, 
-                (vec3){-0.0f, -1.0f});
-        nl_renderer_render_texture(r, t2, (vec3){-0.5f, -0.5f}, (vec3){-0.5f, 0.5f}, (vec3){0.5f, 0.5f}, (vec3){0.5f, -0.5f});
+        nl_renderer_render_texture(r, texture_city, (vec3){-1.0f, -1.0f}, (vec3){-1.0f, 1.0f},  (vec3){1.0f, 1.0f},  (vec3){1.0f, -1.0f});
+        nl_renderer_render_texture(r, texture_shuttle, (vec3){-0.1f, -1.0f}, (vec3){-0.1f, -0.8f}, (vec3){0.1f, -0.8f}, (vec3){0.1f, -1.0f});
 
         nl_window_update(win);
     }
@@ -140,9 +129,10 @@ int main() {
     nl_shader_free(sh);
     nl_shader_free(shader_left_right);
     nl_shader_free(shader_up_down);
+    nl_shader_free(texture_shader);
 
-    nl_texture_free(t1);
-    nl_texture_free(t2);
+    nl_texture_free(texture_shuttle);
+    nl_texture_free(texture_city);
 
     nl_window_free(win);
     nl_renderer_free(r);
